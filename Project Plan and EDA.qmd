@@ -1,0 +1,46 @@
+---
+title: "Project Plan and EDA"
+format: html
+editor: visual
+---
+
+**Reading CSV**
+
+```{r readingCSV}
+fulldata <- read.csv("alzheimers_disease_data.csv")
+fulldata$Diagnosis <- as.factor(fulldata$Diagnosis)
+str(fulldata)
+```
+
+**Dropping columns**
+
+```{r dropcolumns}
+fulldata <- subset(fulldata, select = -c(PatientID, DoctorInCharge))
+```
+
+**Tree Model**
+
+```{r tree}
+library(tree)
+treemodel <- tree(Diagnosis ~ ., data = fulldata)
+plot(treemodel)
+text(treemodel)
+```
+
+## Overview of the Problem
+
+The data i
+
+## Describe how this is a classification problem
+
+## Provide some context about why this problem is interesting
+
+## Dataset description
+
+Describe the data (how many samples are there, are the columns of the data numeric, categorical) What challenges do you envision for your dataset (lots of missing values, high-dimensional data, etc.)
+
+## Are there features that are highly correlated
+
+## Evaluation metrics that are planned to be used
+
+## Describe how you plan to evaluate your classification model
