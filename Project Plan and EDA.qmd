@@ -5,6 +5,7 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`" # current date using r
 format:
     html:
         embed-resources: true
+        page-layout: full
 editor: visual
 ---
 
@@ -12,6 +13,45 @@ editor: visual
 fulldata <- read.csv("alzheimers_disease_data.csv")
 fulldata$Diagnosis <- factor(fulldata$Diagnosis, levels = c(0, 1), labels = c("No", "Yes"))
 fulldata <- subset(fulldata, select = -c(PatientID, DoctorInCharge))
+```
+
+```{r setup, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+# load or install required packages using pacman
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
+pacman::p_load(tidyverse, reshape2, knitr, RColorBrewer, psych, caret, class, randomForest, ranger, corrplot, data.table, DescTools, ggcorrplot, kable, insight, latticeExtra, lmtest, glmnet, psychTools, purrr, rmarkdown, styler, tidygraph, tidymodels, modelenv, parsnip, vcd, xgboost, lattice, plotly, GGally, cowplot, Hmisc, correlation, PRROC, MLMetrics, heatmaply)
+```
+
+```{r variables, echo=FALSE}
+alzdata <- readRDS("alzdata.RDS")
+
+# create values by variable type
+# target variable
+target_var <- "Diagnosis"
+
+# numeric/continuous variables
+numeric_vars <- names(alzdata)[sapply(alzdata, is.numeric)]
+
+# binary variables (factor with 2 levels)
+binary_vars <- names(alzdata)[sapply(alzdata, function(x) is.factor(x) && length(levels(x)) == 2)]
+binary_vars <- setdiff(binary_vars, target_var)
+
+# multi categorical variables (> 2 levels)
+multicat_vars <- names(alzdata)[sapply(alzdata, function(x) is.factor(x) && length(levels(x)) > 2)]
+
+# all categorical vars (excluding target_var)
+all_catvars <- c(binary_vars, multicat_vars)
+
+# all predictor variables (excluding target_var)
+predictor_vars <- setdiff(names(alzdata), target_var)
+
+# function to subset data on variable groupings
+subset_data <- function(data, vars) {
+  return(data[, vars])
+}
+
+numeric_data <- subset_data(alzdata, numeric_vars)
+binary_data <- subset_data(alzdata, binary_vars)
+multicat_data <- subset_data(alzdata, multicat_vars)
 ```
 
 ## Overview of the Problem
@@ -40,6 +80,110 @@ data <- read_csv("dataset_description.csv", show_col_types = FALSE)
 kable(data)
 ```
 
+#### Figure 1. Percentage of frequencies in each class
+
+```{r barchart_classimbalance, echo=FALSE}
+library(lattice)
+diagnosis_counts <- table(alzdata$Diagnosis)
+diagnosis_proportions <- prop.table(diagnosis_counts)
+imbalance_barplot <- barplot(diagnosis_proportions * 100,
+  col = RColorBrewer::brewer.pal(3, "Set2"),
+  ylab = "Percentage",
+  ylim = c(0, 100),
+  border = NA,
+  cex.names = 0.8,
+  cex.axis = 0.6,
+  cex.lab = 0.6,
+  width = 0.1,
+  space = 0.1,
+  names.arg = c("No Alzheimers", "Alzheimer's")
+)
+
+par(mai = c(1, 0.5, 0.5, 0.2))
+abline(h = 0, col = "black", lwd = 1)
+title(
+  main = "Figure 1. Percentage of frequencies in each class (Diagnosis)",
+  adj = 0,
+  cex.main = 0.8,
+  font.main = 1
+)
+```
+
+In our target variable, the negative class of "No Alzheimer's" has `r table(alzdata$Diagnosis)["No Alzheimer's"]` people, and our positive class of "Alzheimer's" has `r table(alzdata$Diagnosis)["Alzheimer's"]` people. This is a `r round(prop.table(table(alzdata$Diagnosis))["No Alzheimer's"] * 100, 2)`% representation of cases with 'No Alzheimers' (negative class), and a `r round(prop.table(table(alzdata$Diagnosis))["Alzheimer's"] * 100, 2)`% representation of cases with 'Alzheimer's' (positive class) (shown in Figure 1). This suggests that we have **moderate class imbalance** that should be addressed to prevent model bias towards the majority class.
+
+#### Figure 2. Numeric predictor variables by diagnosis
+
+```{r violinplot, echo=FALSE, error=FALSE, warning=FALSE}
+library(ggplot2)
+
+# long format
+numeric_vars_long <- reshape2::melt(alzdata, id.vars = "Diagnosis", measure.vars = numeric_vars)
+
+# violin plots for numeric variables by target_var
+ggviolin <- ggplot(numeric_vars_long, aes(x = Diagnosis, y = value, fill = Diagnosis)) +
+  geom_violin(trim = FALSE) +
+  facet_wrap(~variable, scales = "free") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Figure 2. Violin plots of numeric predictor variables by diagnosis") +
+  theme(
+    plot.title = element_text(hjust = 0, size = 8),
+    axis.title.y = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+  )
+
+print(ggviolin)
+
+# create plotly from ggplot object
+violin_plotly <- ggplotlyr(ggviolin)
+```
+
+Figure 2 illustrates the distribution and spread of all the numeric predictor variables grouped by Alzheimer's classification. BMI, Alcohol Consumption, Physical Activity, Diet Quality and all the cholesterol levels appear to be similarly distributed between both groups. MMSE shows more lower scores in the Alzheimer's group, and more higher scores in the no Alzheimer's group. The same pattern is seen in the Functional Assessment and the ADL scores. This suggests they could be important features that impact our classification.
+
+#### Figure 3. Correlation heatmap of numeric predictor variables
+
+```{r correlations, echo = FALSE, warning=FALSE}
+library(psych)
+library(corrplot)
+
+cor_results <- corr.test(alzdata[, numeric_vars], method = "pearson")
+
+#cor matrix
+# cor matrix
+numeric_cor_matrix <- cor_results$r
+
+# p value matrix
+numeric_p_matrix <- cor_results$p
+
+# print(dim(numeric_cor_matrix))
+# print(dim(numeric_p_matrix))
+
+# heatmap
+corrheatmap <- corrplot(numeric_cor_matrix,
+  method = "color",
+  type = "lower",
+  tl.cex = 0.5,
+  tl.col = "black",
+  cl.cex = 0.5,
+  mar = c(0, 1, 2, 3),
+  p.mat = numeric_p_matrix,
+  sig.level = 0.05,
+  insig = "label_sig",
+  pch = 8,
+  pch.cex = 1
+)
+
+title("Figure 3. Pearson correlation heatmap for numeric predictor variables",
+  cex.main = 0.6,
+  adj = 0,
+  font.main = 1
+)
+```
+
+Figure 3 shows very weak correlations between all of the numeric predictor variables. The only statistically significant correlations were between Age and Sleep Quality (R = `r round(cor_results$r['Age', 'SleepQuality'], 2)`, p = `r round(cor_results$p['Age', 'SleepQuality'], 4)`), and ADL and Functional Assessment (R = `r round(cor_results$r['ADL', 'FunctionalAssessment'], 2)`, p = `r round(cor_results$p['ADL', 'FunctionalAssessment'], 4)`). However, the weakness of these results indicates there is no multicollinearity between our numeric predictor variables.
+
 ## Clear description of potential challenges
 
 1.  **Class imbalance:** As depicted in the previous section, our dataset is not balanced and we have more observations on negative diagnosis than positive. This can inadvertently introduce bias in our model. To address the imbalance, we will test models that offset the imbalance through randomness and cross validation.
@@ -49,6 +193,14 @@ kable(data)
 
 ## Performance metrics
 
+To measure our models performance, we need to take into account the medical context of our classification problem as well as our class imbalance. For output from our logistic regression model, the predicted probability values can be converted into class predictions using a threshold of 0.5. Adding these values with the real values from the test data, we can create a confusion matrix to examine a number of metrics and compare them between models.
+
+The model with the highest *Sensitivity* score will be of particular importance to us as it measures the model that is best at classifying the positive cases correctly. In our context of Alzheimers disease classification, this is extremely important due to the serious implications that could occur in a real-world scenario if our model misclassified someone with Alzheimer's as not having it.
+
+However, other metrics should be considered to get a comprehensive understanding of the model's performance, especially in our data set which has imbalanced classes. The *F-1 score* is another metric we will focus on because it is a good balance between our most important metric, *Sensitivity,* and *precision* (positive predicticted value), and is less sensitive to imbalanced classes than metrics like *Accuracy*.
+
+In addition, we will look at feature importance and compare the results given between random forest models, decision tree models and the logistic regression. This will help us get a better understanding of what features are most influential in the model's predictions, which could also have a clinical relevance.
+
 ## Models chosen
 
 We plan to create multiple models and compare their performance and size.
@@ -56,8 +208,6 @@ We plan to create multiple models and compare their performance and size.
 1.  **Lasso Logistic Regression:** As we have a binary classification problem, we aim to employ Lasso with Logistic Regression as our base model. It will help us perform feature selection from 33 features, where most of the features are normally distributed, while simulatenously fitting a Logistic Regression model. Given Lasso's ability to shrink the coefficient estimates towards zero, it would help us select the best subset through cross-validation.
 2.  **Random Forest:** We also intend to test Random Forest model on our dataset. To address the challenges we face from Class imbalance, Synthetic data and Limited observations, we believe Random Forest could be very useful model to deploy and compare. Even though the model performance would be derived from the forest, we will visualise a single tree as it lends itself to be understood easily and follow along. Especially, in the context of our dataset, where medical practitioners and agencies that may want to understand the scaffolding of our model.
 3.  **k-fold kNN Cross-Validation:** Finally, we will also deploy a k-fold kNN Cross-Validation model. Similar to Random Forest, it helps as address similar challenges on Class imbalance, Synthetic data, and Limited observation. Through cross-validation we will be able to tune the k parameter in the kNN model to find the best performing model.
-
-
 
 ## Proposed Plan \| Schedule
 
