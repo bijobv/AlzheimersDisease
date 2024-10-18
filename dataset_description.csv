@@ -1,0 +1,35 @@
+Variables,Description,Class,Type of,Dichotomous,Categorical,Ordered,Countable,Zero defined,Mode,Median,std 
+PatientID,Patient ID,integer,integer,-,-,-,X,-,-,-,-
+Age,Age ,integer,integer,-,-,-,X,X,X,X,X
+Gender,Gender,integer,integer,X,-,-,X,-,X,X,X
+Ethnicity,Ethnicity,integer,integer,-,X,-,X,-,X,X,X
+EducationLevel,Level of education,integer,integer,-,X,X,X,-,X,X,X
+BMI,Body mass index ,numeric,numeric,-,-,-,-,X,-,X,X
+Smoking,Smoking,integer,integer,X,X,-,X,-,X,-,-
+AlcoholConsumption,Alcohol consumption,numeric,numeric,-,-,-,-,X,-,X,X
+PhysicalActivity,Physical activity,numeric,numeric,-,-,-,-,X,-,X,X
+DietQuality,Diet quality,numeric,numeric,-,-,-,-,X,-,X,X
+SleepQuality,Sleep quality,numeric,numeric,-,-,-,-,X,-,X,X
+FamilyHistoryAlzheimers,Family history of Alzeheimers,integer,integer,X,X,-,X,-,X,-,-
+CardiovascularDisease,Cardio vascular disease,integer,integer,X,X,-,X,-,X,-,-
+Diabetes,Diabetes,integer,integer,X,X,-,X,-,X,-,-
+Depression,Depression,integer,integer,X,X,-,X,-,X,-,-
+HeadInjury,Head injury,integer,integer,X,X,-,X,-,X,-,-
+Hypertension,Hypertension,integer,integer,X,X,-,X,-,X,-,-
+SystolicBP,Systolic blood pressure,integer,integer,-,-,X,-,X,-,X,X
+CholesterolTotal,cholesterol total value,integer,integer,-,-,X,-,X,-,X,X
+CholesterolLDL,cholesterol LDL value,numeric,numeric,-,-,-,-,X,-,X,X
+CholesterolHDL,cholesterol HDL value,numeric,numeric,-,-,-,-,X,-,X,X
+CholesterolTriglyerides ,cholesterol Triglyerides value,numeric,numeric,-,-,-,-,X,-,X,X
+MMSE,Mini-Mental State Examination score,numeric,numeric,-,-,-,-,X,-,X,X
+FunctionalAssessment,Functional assessment ,numeric,numeric,-,-,-,-,X,-,X,X
+MemoryComplaints,Memory complaints,integer,integer,X,-,-,X,-,X,X,X
+BehavioralProblems,Behavioral problems,integer,integer,X,-,-,X,-,X,X,X
+ADL,Acitivities of Daily Living score,numeric,numeric,,-,-,-,X,-,X,X
+Confusion,Confusion ,integer,integer,X,-,-,X,-,X,X,X
+Disorientation,Disorientation ,integer,integer,X,-,-,X,-,X,X,X
+PersonalityChanges,Personality changes ,integer,integer,X,-,-,X,-,X,X,X
+DifficultyCompletingTasks,Difficulty completing tasks,integer,integer,X,-,-,X,-,X,X,X
+Forgetfulness,Forgetfulness ,integer,integer,X,-,-,X,-,X,X,X
+Diagnosis ,Diagnosis ,integer,integer,X,-,-,X,-,X,X,X
+DoctorInCharge,Doctor in charge ,character,character,-,-,-,-,-,-,-,-
