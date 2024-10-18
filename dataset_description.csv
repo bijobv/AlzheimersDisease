@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Variables,Description,Data Type
 PatientID,Unique Patient ID,nominal
 Age,"Age of the patient, ranges from 60 to 90 years.",interval
@@ -34,3 +35,41 @@ DifficultyCompletingTasks,"Presence of difficulty completing tasks, 0: No, 1: Ye
 Forgetfulness,"Presence of forgetfulness, 0: No, 1: Yes",nominal
 Diagnosis ,"Diagnosis status for Alzheimer's Disease, 0: No, 1: Yes",nominal
 DoctorInCharge,Redacted confidential information about the doctor in charge.,nominal 
+=======
+Variables,Description,Class,Data Type,Mean,Std. Deviation,25%,50%,75%,Max
+PatientID,A unique identifier assigned to each patient (4751 to 6900).,integer,nominal,-,-,-,-,-,-
+Age,The age of the patients ranges from 60 to 90 years.,integer,interval,74.9,8.99,67,75,83,90
+Gender,"Gender of the patients, where 0 represents Male and 1 represents Female.",integer,nominal,-,-,-,-,-,-
+Ethnicity,"The ethnicity of the patients, coded as - 0: Caucasian, 1: African American, 2: Asian, 3: Other",integer,nominal,0.7,1,0,0,1,3
+EducationLevel,"The education level of the patients, coded as - 0: None, 1: High School, 2: Bachelor's, 3: Higher",integer,ordinal,1.29,0.9,1,1,2,3
+BMI,"Body Mass Index of the patients, ranging from 15 to 40.",numeric,ratio,-,-,-,-,-,-
+Smoking,"Smoking status, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+AlcoholConsumption,"Weekly alcohol consumption in units, ranging from 0 to 20.",numeric,ratio,-,-,-,-,-,-
+PhysicalActivity,"Weekly physical activity in hours, ranging from 0 to 10.",numeric,ratio,-,-,-,-,-,-
+DietQuality,"Diet quality score, ranging from 0 to 10.",numeric,ratio,-,-,-,-,-,-
+SleepQuality,"Sleep quality score, ranging from 4 to 10.",numeric,ratio,-,-,-,-,-,-
+FamilyHistoryAlzheimers,"Family history of Alzheimer's Disease, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+CardiovascularDisease,"Presence of cardiovascular disease, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Diabetes,"Presence of diabetes, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Depression,"Presence of depression, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+HeadInjury,"History of head injury, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Hypertension,"Presence of hypertension, where 0 indicates No and 1 indicates Yes.",integer,nominal ,-,-,-,-,-,-
+SystolicBP,"Systolic blood pressure, ranging from 90 to 180 mmHg.",numeric,interval,-,-,-,-,-,-
+DiastolicBP,"Diastolic blood pressure, ranging from 60 to 120 mmHg.",numeric,interval,-,-,-,-,-,-
+CholesterolTotal,"Total cholesterol levels, ranging from 150 to 300 mg/dL.",numeric,interval,-,-,-,-,-,-
+CholesterolLDL,"Low-density lipoprotein cholesterol levels, ranging from 50 to 200 mg/dL.",numeric,interval,-,-,-,-,-,-
+CholesterolHDL,"High-density lipoprotein cholesterol levels, ranging from 20 to 100 mg/dL.",numeric,interval,-,-,-,-,-,-
+CholesterolTriglyerides ,"Triglycerides levels, ranging from 50 to 400 mg/dL.",numeric,interval,-,-,-,-,-,-
+MMSE,"Mini-Mental State Examination score, ranging from 0 to 30. Lower scores indicate cognitive impairment.",numeric,ordinal ,-,-,-,-,-,-
+FunctionalAssessment," Functional assessment score, ranging from 0 to 10. Lower scores indicate greater impairment.",numeric,ordinal ,-,-,-,-,-,-
+MemoryComplaints,"Presence of memory complaints, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+BehavioralProblems,"Presence of behavioral problems, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+ADL,"Activities of Daily Living score, ranging from 0 to 10. Lower scores indicate greater impairment.",numeric,ordinal,-,-,-,-,-,-
+Confusion,"Presence of confusion, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Disorientation,"Presence of disorientation, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+PersonalityChanges,"Presence of personality changes, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+DifficultyCompletingTasks,"Presence of difficulty completing tasks, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Forgetfulness,"Presence of forgetfulness, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+Diagnosis ,"Diagnosis status for Alzheimer's Disease, where 0 indicates No and 1 indicates Yes.",integer,nominal,-,-,-,-,-,-
+DoctorInCharge,"This column contains confidential information about the doctor in charge, with ""XXXConfid"" as the value for all patients.",character,nominal ,-,-,-,-,-,-
+>>>>>>> origin/main
