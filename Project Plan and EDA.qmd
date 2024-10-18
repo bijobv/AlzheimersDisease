@@ -1,6 +1,6 @@
 ---
 title: "Project Plan and EDA"
-author: "Bijo Varghese,Hong Fu, Jessica Kentwell"
+author: "Bijo Varghese, Hong Fu, Jessica Kentwell"
 date: "`r format(Sys.Date(), '%B %d, %Y')`" # current date using r 
 format:
     html:
@@ -133,7 +133,7 @@ We plan to create multiple models and test the performance to find the best mode
 
 ## Proposed Plan \| Schedule
 
-```{r, schedule}
+```{r, schedule, eval=FALSE}
 # Install and load the required package
 install.packages("png")
 library(png)
