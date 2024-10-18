@@ -58,20 +58,10 @@ We plan to create multiple models and compare their performance and size.
 3.  **k-fold kNN Cross-Validation:** Finally, we will also deploy a k-fold kNN Cross-Validation model. Similar to Random Forest, it helps as address similar challenges on Class imbalance, Synthetic data, and Limited observation. Through cross-validation we will be able to tune the k parameter in the kNN model to find the best performing model.
 
 
+
 ## Proposed Plan \| Schedule
 
-```{r, schedule, eval=FALSE}
-# Install and load the required package
-install.packages("png")
-library(png)
-
-# Load the PNG image
-img <- readPNG("schedule.png")
-
-# Create an empty plot
-plot(1:2, type = "n", xlab = "", ylab = "", axes = FALSE)
-
-# Display the image
-rasterImage(img, 1, 1, 2, 2)
-
+```{r schedule, echo=FALSE}
+library(knitr)
+include_graphics("schedule.png")
 ```
