@@ -26,18 +26,18 @@ There are **`r nrow(fulldata)`** observations and **`r ncol(fulldata)`** variabl
 
 ```{r, data_description, fold: true, echo=FALSE}
 
-# read the data from a CSV file and display it as a table 
-
 # Load required libraries
 library(readr)   # To read CSV files
 library(knitr)   # To format tables in a nice layout
+library(kableExtra)
 
 # Read the CSV file into a dataframe
 data <- read_csv("dataset_description.csv", show_col_types = FALSE)
 
-
-# Display the entire dataset as a table
-kable(data)
+kable(data, format = "html") %>%
+  kable_styling() %>%
+  column_spec(1:ncol(data), extra_css = "font-size: 11px;") %>%  # Font size for table body
+  row_spec(0, extra_css = "font-size: 11px;")  # Font size for headers (row 0)
 ```
 
 ## Clear description of potential challenges
