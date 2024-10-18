@@ -1,4 +1,4 @@
-Variables,Description,Class,Type of,Dichotomous,Categorical,Ordered,Countable,Zero defined,Mode,Median,std 
+Variables,Description,Class,Type of,Dichotomous,Categorical,Ordered,Countable,Zero defined,Mode,Median,Std 
 PatientID,Patient ID,integer,integer,-,-,-,X,-,-,-,-
 Age,Age ,integer,integer,-,-,-,X,X,X,X,X
 Gender,Gender,integer,integer,X,-,-,X,-,X,X,X

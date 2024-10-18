@@ -1,5 +1,7 @@
 ---
 title: "Project Plan and EDA"
+author: "Bijo Varghese,Hong Fu, Jessica Kentwell"
+date: "`r format(Sys.Date(), '%B %d, %Y')`" # current date using r 
 format:
     html:
         embed-resources: true
@@ -129,7 +131,7 @@ kable(data)
 
 We plan to create multiple models and test the performance to find the best model. As we have
 
-## Plan or schedule
+## Proposed Plan \| Schedule
 
 ```{r, schedule}
 # Install and load the required package
