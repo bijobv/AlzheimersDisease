@@ -8,9 +8,7 @@ format:
 editor: visual
 ---
 
-**Reading CSV**
-
-```{r readingCSV}
+```{r readingCSV, echo=FALSE}
 fulldata <- read.csv("alzheimers_disease_data.csv")
 fulldata$Diagnosis <- factor(fulldata$Diagnosis, levels = c(0, 1), labels = c("No", "Yes"))
 fulldata <- subset(fulldata, select = -c(PatientID, DoctorInCharge))
@@ -26,7 +24,7 @@ According to Alzheimer's association, 1 in 3 older adult dies with Alzheimer's o
 
 There are **`r nrow(fulldata)`** observations and **`r ncol(fulldata)`** variables in this dataset, of which **`r (ncol(fulldata)-1)`** are independent variables and **'1'** is the target variable. The table below provides a breakdown of these variables.
 
-```{r, data_description, fold: true}
+```{r, data_description, fold: true, echo=FALSE}
 
 # read the data from a CSV file and display it as a table 
 
@@ -52,17 +50,13 @@ kable(data)
 ## Performance metrics
 
 ## Models chosen
-<<<<<<< HEAD
 
 We plan to create multiple models and compare their performance and size.
 
 1.  **Lasso Logistic Regression:** As we have a binary classification problem, we aim to employ Lasso with Logistic Regression as our base model. It will help us perform feature selection from 33 features, where most of the features are normally distributed, while simulatenously fitting a Logistic Regression model. Given Lasso's ability to shrink the coefficient estimates towards zero, it would help us select the best subset through cross-validation.
 2.  **Random Forest:** We also intend to test Random Forest model on our dataset. To address the challenges we face from Class imbalance, Synthetic data and Limited observations, we believe Random Forest could be very useful model to deploy and compare. Even though the model performance would be derived from the forest, we will visualise a single tree as it lends itself to be understood easily and follow along. Especially, in the context of our dataset, where medical practitioners and agencies that may want to understand the scaffolding of our model.
 3.  **k-fold kNN Cross-Validation:** Finally, we will also deploy a k-fold kNN Cross-Validation model. Similar to Random Forest, it helps as address similar challenges on Class imbalance, Synthetic data, and Limited observation. Through cross-validation we will be able to tune the k parameter in the kNN model to find the best performing model.
-=======
->>>>>>> origin/main
 
-We plan to create multiple models and test the performance to find the best model. As we have
 
 ## Proposed Plan \| Schedule
 
