@@ -6,6 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Bijo Varghese, Hong Fu, Jessica Kentwell">
+<meta name="dcterms.date" content="2024-10-18">
 
 <title>Project Plan and EDA</title>
 <style>
@@ -3082,7 +3084,19 @@ vertical-align: -.125em;
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Bijo Varghese, Hong Fu, Jessica Kentwell </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -3272,7 +3286,7 @@ $F1
 <th style="text-align: left;">Zero defined</th>
 <th style="text-align: left;">Mode</th>
 <th style="text-align: left;">Median</th>
-<th style="text-align: left;">std</th>
+<th style="text-align: left;">Std</th>
 </tr>
 </thead>
 <tbody>
@@ -3771,8 +3785,22 @@ $F1
 <h2 class="anchored" data-anchor-id="models-chosen">Models chosen</h2>
 <p>We plan to create multiple models and test the performance to find the best model. As we have</p>
 </section>
-<section id="plan-or-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="plan-or-schedule">Plan or schedule</h2>
+<section id="proposed-plan-schedule" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-plan-schedule">Proposed Plan | Schedule</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load the required package</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;png&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the PNG image</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">readPNG</span>(<span class="st">&quot;schedule.png&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty plot</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the image</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(img, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 
 </main>
