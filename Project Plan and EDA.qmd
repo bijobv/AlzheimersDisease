@@ -99,17 +99,19 @@ According to Alzheimer's association, 1 in 3 older adult dies with Alzheimer's o
 
 ## Clear description of potential challenges
 
-**1. Class imbalance:** As depicted in the previous section, our dataset is not balanced and we have more observations on negative diagnosis than positive. This can inadvertently introduce bias in our model. To address the imbalance, we will test models that offset the imbalance through randomness and cross validation.
-
-**2. Feature selection:** To choose the adequate number of features out of the 33 available, it will require us to deploy and test several feature selection techniques find the right model size. But our group also has extensive medical data experience to test the statistical selections against intuition.
-
-**3. Synthetic data:** The provenance of the data suggests it was generated synthetically. The data was generated for academic purposes with distributions that may mimic the real world. But we don't have unseen real world data to validate the model. This means the model should be used cautiously in the real world, given the medical context.
-
-**4. Limited observations:** Our dataset contains 2149 observations, which is just sufficiently large to train and test our model. But it is not large enough to qualify has well-tested models in medical context. However, using the models suggested to address class imbalance will also help us train and tune our model for better performance.
+1.  **Class imbalance:** As depicted in the previous section, our dataset is not balanced and we have more observations on negative diagnosis than positive. This can inadvertently introduce bias in our model. To address the imbalance, we will test models that offset the imbalance through randomness and cross validation.
+2.  **Feature selection:** To choose the adequate number of features out of the 33 available, it will require us to deploy and test several feature selection techniques find the right model size. But our group also has extensive medical data experience to test the statistical selections against intuition.
+3.  **Synthetic data:** The provenance of the data suggests it was generated synthetically. The data was generated for academic purposes with distributions that may mimic the real world. But we don't have unseen real world data to validate the model. This means the model should be used cautiously in the real world, given the medical context.
+4.  **Limited observations:** Our dataset contains 2149 observations, which is just sufficiently large to train and test our model. But it is not large enough to qualify has well-tested models in medical context. However, using the models suggested to address class imbalance will also help us train and tune our model for better performance.
 
 ## Performance metrics
 
 ## Models chosen
-We plan to create multiple models and test the performance to find the best model. As we have 
+
+We plan to create multiple models and compare their performance and size.
+
+1.  **Lasso Logistic Regression:** As we have a binary classification problem, we aim to employ Lasso with Logistic Regression as our base model. It will help us perform feature selection from 33 features, where most of the features are normally distributed, while simulatenously fitting a Logistic Regression model. Given Lasso's ability to shrink the coefficient estimates towards zero, it would help us select the best subset through cross-validation.
+2.  **Random Forest:** We also intend to test Random Forest model on our dataset. To address the challenges we face from Class imbalance, Synthetic data and Limited observations, we believe Random Forest could be very useful model to deploy and compare. Even though the model performance would be derived from the forest, we will visualise a single tree as it lends itself to be understood easily and follow along. Especially, in the context of our dataset, where medical practitioners and agencies that may want to understand the scaffolding of our model.
+3.  **k-fold kNN Cross-Validation:** Finally, we will also deploy a k-fold kNN Cross-Validation model. Similar to Random Forest, it helps as address similar challenges on Class imbalance, Synthetic data, and Limited observation. Through cross-validation we will be able to tune the k parameter in the kNN model to find the best performing model.
 
 ## Plan or schedule
